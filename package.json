@@ -2,6 +2,7 @@
   "name": "fb-crawled-frontend",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://ms0223900.github.io/fb-crawled-frontend/",
   "scripts": {
     "start": "vue-cli-service serve --open",
     "serve": "vue-cli-service serve",
