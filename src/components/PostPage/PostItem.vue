@@ -71,9 +71,19 @@ export default class PostItem extends Vue {
     text-align: left;
   }
   .post-item-wrapper {
-    width: 33%;
+    width: 100%;
     box-sizing: border-box;
     padding: 4px;
+  }
+  /* @media screen and (min-width: 560px) {
+    .post-item-wrapper {
+      width: 50%;
+    }
+  } */
+  @media screen and (min-width: 1024px) {
+    .post-item-wrapper {
+      width: 33%;
+    }
   }
   .post-item-wrapper > div {
     padding-bottom: 8px;

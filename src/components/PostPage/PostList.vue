@@ -63,4 +63,7 @@ export default class PostList extends Vue {
     display: flex;
     flex-wrap: wrap;
   }
+  h2 {
+    /* text-align: left; */
+  }
 </style>
