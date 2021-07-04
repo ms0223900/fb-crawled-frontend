@@ -7,6 +7,9 @@
 </template>
 
 <style>
+/* * {
+  outline: 1px solid #0ff;
+} */
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

@@ -13,6 +13,13 @@ module.exports = {
   },
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off'
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    "semi": [
+      "warn",
+      "always"
+    ],
+    "vue/require-v-for-key": "off",
+    "indent": "off",
+    "@typescript-eslint/indent": ["warn", 2]
   }
 }
