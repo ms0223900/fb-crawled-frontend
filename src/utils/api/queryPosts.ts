@@ -1,5 +1,5 @@
 import { SinglePost } from '@/components/PostPage/types';
-import feedsJson from '@/static/2021-7-4-19_7_37.json';
+import feedsJson from '@/static/2021-7-5-23_31_51.json';
 
 export interface QueriedPosts {
   creationTime: string
