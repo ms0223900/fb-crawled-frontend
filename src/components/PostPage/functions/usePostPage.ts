@@ -29,7 +29,7 @@ const usePostPage = () => {
       ...posts,
       allFetchedFeeds: posts.allFetchedFeeds.map(f => ({ ...f, posts: f.allExtractedStories }))
     }) : undefined;
-    console.log(handledPosts);
+    // console.log(handledPosts);
     state.queriedPosts = handledPosts;
     state.loading = false;
   };
@@ -43,12 +43,12 @@ const usePostPage = () => {
     return state.queriedPosts ? (
       state.queriedPosts.allFetchedFeeds.map(feeds => ({
         ...feeds,
-        posts: PostDataHandlers.filterByConditions(
+        posts: feeds.allExtractedStories ? PostDataHandlers.filterByConditions(
           feeds.allExtractedStories, {
             isFilteringToday: isFilteringTodayToggle.value,
             isFilteringHaveLinks: isFilteringHaveLinksToggle.value
           }
-        )
+        ) : []
       }))
     ) : [];
   });

@@ -1,5 +1,6 @@
 import { SinglePost } from '@/components/PostPage/types';
 import firebase from 'firebase';
+import QueriedPostsHandlers from './api-functions/QueriedPostsHandlers';
 
 export interface QueriedPosts {
   creationTime: string
@@ -25,14 +26,15 @@ firebase.initializeApp(config);
 const database = firebase.database();
 const dbRef = database.ref();
 
-const queryPostsByFirebase = (): Promise<QueriedPosts> | undefined => {
+const queryPostsByFirebase = (): Promise<QueriedPosts | undefined> => {
   // const url = 'static/2021-7-3-21_19_47.json';
   try {
     return dbRef.child('crawled-data').get().then(snapshot => {
       if (snapshot.exists()) {
         const res = snapshot.val();
-        console.log(snapshot.val());
-        return res;
+        const fixedRes = QueriedPostsHandlers.fixDataFromDatabase(res);
+        console.log(fixedRes);
+        return fixedRes;
       } else {
         console.log('No data available');
         return undefined;
@@ -43,7 +45,7 @@ const queryPostsByFirebase = (): Promise<QueriedPosts> | undefined => {
     //   .then(res => res.json());
     // return Promise.resolve(feedsJson as any);
   } catch (error) {
-    return undefined;
+    return Promise.resolve(undefined);
   }
 };
 
