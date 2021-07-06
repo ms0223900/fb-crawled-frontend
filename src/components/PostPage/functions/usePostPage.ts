@@ -1,4 +1,4 @@
-import queryPosts, { QueriedPosts } from '@/utils/api/queryPosts';
+import queryPostsByFirebase, { QueriedPosts } from '@/utils/api/queryPostsByFirebase';
 import useToggle from '@/utils/hooks/useToggle';
 import { computed, reactive } from 'vue';
 import PostDataHandlers from './PostDataHandlers';
@@ -23,7 +23,7 @@ const usePostPage = () => {
 
   const handleQueryPosts = async () => {
     state.loading = true;
-    const posts = await queryPosts();
+    const posts = await queryPostsByFirebase();
     // console.log(posts);
     const handledPosts = posts ? ({
       ...posts,

@@ -1,6 +1,10 @@
 <template>
   <div class="postpage-wrapper">
     <h1>Fb爬文列表</h1>
+    <EmptyMessage
+      v-if="postPageState.state.loading"
+      message="Loading..."
+    />
     <div v-if="postPageState.state.queriedPosts">
       <p>{{ `資料更新時間: ${postPageState.createdAt}` }}</p>
       <div class="checkbox-wrapper">
@@ -14,7 +18,6 @@
         />
       </div>
       <hr />
-      <h3 v-if="postPageState.state.loading">Loading...</h3>
       <div>
         <PostList
           v-for="(postListData, i) in postPageState.allFetchedFeeds"
@@ -34,12 +37,14 @@ import PostList from '@/components/PostPage/PostList.vue';
 import { watch } from '@vue/runtime-core';
 import Checkbox from '@/components/common/Checkbox.vue';
 import useToggle from '@/utils/hooks/useToggle';
+import EmptyMessage from '@/components/common/EmptyMessage.vue';
 
 @Options({
   name: 'PostPage',
   components: {
     PostList,
-    Checkbox
+    Checkbox,
+    EmptyMessage
   }
 })
 
