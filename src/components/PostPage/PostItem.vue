@@ -1,12 +1,17 @@
 <template>
   <div class="post-item-wrapper col-4">
-    <div class="post-item">
+    <div class="post-item" v-show="!state.shouldHideClickedPost">
       <div>
         <!-- <h3>{{ singlePostData.creationTime.name }}</h3> -->
         <p>{{ singlePostData.creationTime.timeLocaleStr }}</p>
       </div>
       <div>
-        <a :href="singlePostData.postLink.link" target="_blank">
+        <a
+          :href="singlePostData.postLink.link"
+          target="_blank"
+          @click="state.handleToggle"
+          @click.middle="state.handleToggle"
+        >
           {{ singlePostData.postLink.name }}
         </a>
       </div>
@@ -36,9 +41,11 @@
 </template>
 
 <script lang="ts">
+import useToggle from '@/utils/hooks/useToggle';
 import { computed, ComputedRef } from '@vue/runtime-core';
-import { Options, Vue } from 'vue-class-component';
+import { Options, setup, Vue } from 'vue-class-component';
 import { SinglePost } from '../PostPage/types';
+import usePostItem from './functions/usePostItem';
 
 @Options({
   props: {
@@ -57,6 +64,8 @@ export default class PostItem extends Vue {
       `按讚數: ${reactionCount}, 分享數: ${shareCount}`
     );
   })
+
+  state = setup(() => usePostItem())
 }
 </script>
 

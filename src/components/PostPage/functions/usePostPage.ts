@@ -1,7 +1,10 @@
 import queryPostsByFirebase, { QueriedPosts } from '@/utils/api/queryPostsByFirebase';
+import queryPosts from '@/utils/api/queryPosts';
 import useToggle from '@/utils/hooks/useToggle';
 import { computed, reactive } from 'vue';
 import PostDataHandlers from './PostDataHandlers';
+import { useStore } from 'vuex';
+import { State } from '@/store';
 
 export interface PostPageState {
   loading: boolean
@@ -9,12 +12,14 @@ export interface PostPageState {
 }
 
 const usePostPage = () => {
+  const store = useStore<State>();
   const {
     toggle: isFilteringTodayToggle
   } = useToggle(true);
   const {
     toggle: isFilteringHaveLinksToggle
   } = useToggle(true);
+  const isHideClickedLinkToggle = computed(() => store.state.isHideClickedLink);
 
   const state: PostPageState = reactive({
     loading: false,
@@ -24,7 +29,9 @@ const usePostPage = () => {
   const handleQueryPosts = async () => {
     state.loading = true;
     const posts = await queryPostsByFirebase();
-    // console.log(posts);
+    // for testing
+    // const posts = await queryPosts();
+
     const handledPosts = posts ? ({
       ...posts,
       allFetchedFeeds: posts.allFetchedFeeds.map(f => ({ ...f, posts: f.allExtractedStories }))
@@ -33,6 +40,8 @@ const usePostPage = () => {
     state.queriedPosts = handledPosts;
     state.loading = false;
   };
+
+  const handleToggleHideClickedLink = () => store.dispatch('handleToggleHideClickedLink');
 
   const createdAt = computed(() => {
     return state.queriedPosts ? (
@@ -60,7 +69,9 @@ const usePostPage = () => {
     allFetchedFeeds,
     isFilteringTodayToggle,
     isFilteringHaveLinksToggle,
-    handleQueryPosts
+    isHideClickedLinkToggle,
+    handleQueryPosts,
+    handleToggleHideClickedLink
   });
 };
 

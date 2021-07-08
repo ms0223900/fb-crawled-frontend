@@ -16,6 +16,11 @@
           labelName="過濾貼文內有連結"
           v-model="postPageState.isFilteringHaveLinksToggle"
         />
+        <Checkbox
+          labelName="過濾已點擊連結之貼文"
+          v-model="postPageState.isHideClickedLinkToggle"
+          @update:modelValue="() => postPageState.handleToggleHideClickedLink()"
+        />
       </div>
       <hr />
       <div>
