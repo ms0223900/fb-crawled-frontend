@@ -1,6 +1,6 @@
 <template>
-  <div class="post-item-wrapper col-4">
-    <div class="post-item" v-show="!state.shouldHideClickedPost">
+  <div class="post-item-wrapper col-4" v-show="!state.shouldHideClickedPost">
+    <div class="post-item">
       <div>
         <!-- <h3>{{ singlePostData.creationTime.name }}</h3> -->
         <p>{{ singlePostData.creationTime.timeLocaleStr }}</p>
@@ -9,8 +9,8 @@
         <a
           :href="singlePostData.postLink.link"
           target="_blank"
-          @click="state.handleToggle"
-          @click.middle="state.handleToggle"
+          @click="state.handleClickPostItem(singlePostData.id)"
+          @click.middle="state.handleClickPostItem(singlePostData.id)"
         >
           {{ singlePostData.postLink.name }}
         </a>
@@ -65,7 +65,9 @@ export default class PostItem extends Vue {
     );
   })
 
-  state = setup(() => usePostItem())
+  state = setup(() => usePostItem({
+    postId: this.singlePostData.id
+  }))
 }
 </script>
 

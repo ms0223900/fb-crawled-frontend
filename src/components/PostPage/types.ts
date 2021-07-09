@@ -4,6 +4,7 @@ export interface PostsFilteringOptions {
 }
 
 export interface SinglePost {
+  id: string
   postLink: {
     name: string,
     link: string
