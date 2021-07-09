@@ -5,6 +5,7 @@ import { computed, reactive } from 'vue';
 import PostDataHandlers from './PostDataHandlers';
 import { useStore } from 'vuex';
 import { State } from '@/store';
+import asyncGetPosts from '@/utils/api/asyncGetPosts';
 
 export interface PostPageState {
   loading: boolean
@@ -28,13 +29,15 @@ const usePostPage = () => {
 
   const handleQueryPosts = async () => {
     state.loading = true;
-    const posts = await queryPostsByFirebase();
+    const posts = await asyncGetPosts();
     // for testing
     // const posts = await queryPosts();
 
     const handledPosts = posts ? ({
       ...posts,
-      allFetchedFeeds: posts.allFetchedFeeds.map(f => ({ ...f, posts: f.allExtractedStories }))
+      allFetchedFeeds: posts.allFetchedFeeds.map(f =>
+        ({ ...f, posts: f.allExtractedStories })
+      )
     }) : undefined;
     // console.log(handledPosts);
     state.queriedPosts = handledPosts;
